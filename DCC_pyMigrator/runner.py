@@ -1,6 +1,4 @@
 import migrate
-import pygmagick
-
 
 def main():
     print("Hello from python")
@@ -8,12 +6,13 @@ def main():
     print(migrate.version())
 
     print("Doing the magick thing")
-    version = pygmagick.version()
+    version = migrate.version()
     print(version)
-    print(pygmagick.hello())
-    pygmagick.convert(input="/Users/hborcher/Documents/00000003.tif", output="dummy.jp2")
+    print(migrate.hello())
+    # gmagickpy.convert(input="/Users/hborcher/Documents/00000003.tif", output="dummy.jp2")
     print(version)
     print(type(version))
+    migrate.read_metadata("/Users/hborcher/Documents/00000003.tif")
 
 
 if __name__ == '__main__':
