@@ -22,7 +22,7 @@ set(PYTHON_EXTENSION_SOURCE
 # TODO: Create test framework for C side
 
 set(DEP_LIBS_FOUND YES)
-set(CMAKE_MODULE_PATH  ${PROJECT_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 #####################
 set(Pyconverted_lib ${CMAKE_CURRENT_BINARY_DIR}/pygmagick.cpython-36m-darwin.so)
@@ -88,8 +88,8 @@ if (DEP_LIBS_FOUND)
             COMMENT "Building PyGraphicsMagick module for Python version ${PYTHONLIBS_VERSION_STRING}"
             DEPENDS ${CMAKE_BINARY_DIR}/${PYTHON_SOURCE}
     )
-        add_library(_ SHARED ${CMAKE_CURRENT_SOURCE_DIR}/${PYTHON_EXTENSION_SOURCE})
-#        target_include_directories(DCC_pyMigrator PRIVATE ${PYTHON_INCLUDE_DIR})
+    add_library(_ SHARED ${CMAKE_CURRENT_SOURCE_DIR}/${PYTHON_EXTENSION_SOURCE})
+    #        target_include_directories(DCC_pyMigrator PRIVATE ${PYTHON_INCLUDE_DIR})
 else ()
     message(WARNING "Deps not met")
 endif ()
