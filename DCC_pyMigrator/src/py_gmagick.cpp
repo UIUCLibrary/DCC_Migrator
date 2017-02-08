@@ -6,7 +6,7 @@
 */
 
 #include <Python.h>
-#include "glue.h"
+#include "convert.h"
 
 static PyObject *pygmagickHelloworld(PyObject *self, PyObject *args, PyObject *keywds) {
     char *s = NULL;
@@ -70,7 +70,7 @@ static struct PyModuleDef pygmagickModule = {
         pygmagickMethods // Methods
 };
 
-PyMODINIT_FUNC PyInit_pygmagick(void) {
+PyMODINIT_FUNC PyInit_gmagickpy(void) {
     init_library("");
     return PyModule_Create(&pygmagickModule);
 }
