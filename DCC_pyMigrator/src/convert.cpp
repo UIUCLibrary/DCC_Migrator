@@ -1,4 +1,4 @@
-#include "glue.h"
+#include "convert.h"
 
 #include <iostream>
 #include <Magick++.h>
