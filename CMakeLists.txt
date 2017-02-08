@@ -8,13 +8,19 @@ set(PYTHON_SOURCE
         DCC_pyMigrator/__init__.py
         DCC_pyMigrator/__main__.py
         )
+
+#TODO: Split extension from straight c functions
 set(PYTHON_EXTENSION_SOURCE
         DCC_pyMigrator/src/migrate.cpp
-        DCC_pyMigrator/src/glue.cpp
-        DCC_pyMigrator/src/glue.h
-        DCC_pyMigrator/src/py_gmagick.cpp
+        DCC_pyMigrator/src/convert.cpp
+        DCC_pyMigrator/src/convert.h
+        DCC_pyMigrator/src/metadata.cpp
+        DCC_pyMigrator/src/metadata.h
 
         )
+
+# TODO: Create test framework for C side
+
 set(DEP_LIBS_FOUND YES)
 set(CMAKE_MODULE_PATH  ${PROJECT_SOURCE_DIR}/cmake)
 
