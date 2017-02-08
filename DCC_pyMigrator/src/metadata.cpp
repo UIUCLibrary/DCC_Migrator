@@ -2,7 +2,7 @@
 // Created by hborcher on 1/31/2017.
 //
 
-#include "exiv2_glue.h"
+#include "metadata.h"
 #include <exiv2/exiv2.hpp>
 #include <cassert>
 
