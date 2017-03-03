@@ -1,0 +1,2 @@
+add_subdirectory(Exiv2Wrapper)
+add_subdirectory(MagickWrapper)
