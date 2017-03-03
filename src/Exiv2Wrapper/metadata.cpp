@@ -6,7 +6,7 @@
 #include <exiv2/exiv2.hpp>
 #include <cassert>
 
-const std::vector<metadata_chunk> read_metadata(const std::string &filename) {
+const std::vector<metadata_chunk> read_iptc_metadata(const std::string &filename) {
     using namespace std;
 
     vector<metadata_chunk> metadata;
