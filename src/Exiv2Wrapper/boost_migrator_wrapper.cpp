@@ -18,9 +18,9 @@ using namespace boost::python;
 struct Metadata {
     Metadata(const std::string &filename) : filename(filename) {}
 
-    dict get() {
+    dict iptc() {
         dict d;
-        for (auto &i : read_metadata(this->filename)) {
+        for (auto &i : read_iptc_metadata(this->filename)) {
             d[i.key] = make_tuple(i.data_type, i.value);
         }
         return d;
@@ -32,9 +32,9 @@ struct Metadata {
 #include <boost/python.hpp>
 
 
-BOOST_PYTHON_MODULE (dcc_migrator) {
+BOOST_PYTHON_MODULE (exiv2_wrapper) {
 
     class_<Metadata>("Metadata", init<std::string>())
-            .def("get", &Metadata::get);
+            .def("iptc", &Metadata::iptc);
 //            .def("foo", &Metadata::foo);
 }
