@@ -1,0 +1,16 @@
+set(MAGICK_WRAPPER_SRC convert.h convert.cpp)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/DCC_pyMigrator/ext)
+if (DEP_LIBS_FOUND)
+    include_directories(${PYTHON_INCLUDE_DIR})
+    include_directories(${MAGICK_INCLUDE_DIR})
+    include_directories(${Boost_INCLUDE_DIRS})
+    set(Boost_USE_STATIC_LIBS ON)
+
+    PYTHON_ADD_MODULE(MagicWrapper ${MAGICK_WRAPPER_SRC})
+
+    target_link_libraries(MagicWrapper ${MAGICK++_LIBRARIES})
+    target_link_libraries(MagicWrapper ${PYTHON_LIBRARY})
+    target_link_libraries(MagicWrapper ${Boost_LIBRARIES})
+else ()
+    message(WARNING "DEP  not found")
+endif ()
