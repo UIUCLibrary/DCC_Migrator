@@ -1,1 +1,1 @@
-from .Exiv2Wrapper import exiv2_wrapper
+from .metadata import Metadata
