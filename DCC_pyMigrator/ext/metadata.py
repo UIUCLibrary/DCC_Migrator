@@ -1,7 +1,3 @@
-import sys
-from fractions import Fraction
-
-from datetime import datetime, timezone
 from collections import namedtuple
 from . import exiv2_wrapper
 
