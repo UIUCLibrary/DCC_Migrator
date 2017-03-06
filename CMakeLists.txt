@@ -60,35 +60,29 @@ if (DEP_LIBS_FOUND)
     add_custom_target(RUN_IN_PYTHON
             COMMAND ${PYTHON_EXECUTABLE} DCC_pyMigrator
             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-            DEPENDS Build_Python_Module
+            DEPENDS DCC_pyMigrator
             )
-    ADD_CUSTOM_TARGET(Build_Python_Module
-            DEPENDS PythonSource exiv2_wrapper)
+    ADD_CUSTOM_TARGET(DCC_pyMigrator
+            DEPENDS PythonSource PythonExtensions)
 
+    add_custom_target(PythonExtensions
+            DEPENDS exiv2_wrapper
+            )
     add_custom_target(Make_Python_Wheel
             COMMAND ${PYTHON_EXECUTABLE} setup.py bdist_wheel
             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/
-            DEPENDS Build_Python_Module
+            DEPENDS DCC_pyMigrator
             )
     add_custom_command(OUTPUT PythonSource
             PRE_BUILD
-            BYPRODUCTS ${PYTHON_SOURCE}
             COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_BINARY_DIR}/DCC_pyMigrator
             COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/DCC_pyMigrator ${CMAKE_BINARY_DIR}/DCC_pyMigrator
             COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/setup.py ${PROJECT_BINARY_DIR}
             COMMENT "Copying Python source to build dir ${PROJECT_BINARY_DIR}/"
             )
 
-#    add_custom_command(
-#            PRE_BUILD
-#            OUTPUT ${Pyconverted_lib}
-#            COMMAND ${PYTHON_EXECUTABLE} setup.py build_ext --inplace
-#            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/DCC_pyMigrator
-#            COMMENT "Building PyGraphicsMagick module for Python version ${PYTHONLIBS_VERSION_STRING}"
-#            DEPENDS ${CMAKE_BINARY_DIR}/${PYTHON_SOURCE}
-#    )
+
     add_subdirectory(src/)
-    #        target_include_directories(src PRIVATE ${PYTHON_INCLUDE_DIR})
 else ()
     message(WARNING "Deps not met")
 endif ()
