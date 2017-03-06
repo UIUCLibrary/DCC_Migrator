@@ -31,7 +31,6 @@ public:
 
     dict xmp() {
         dict d;
-        std::cout <<"HERE!!!!" << std::endl;
         for (auto &i : read_xmp_metadata(this->filename)) {
             d[i.key] = make_tuple(i.data_type, i.value);
         }
