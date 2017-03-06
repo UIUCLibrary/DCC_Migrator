@@ -2,45 +2,42 @@ import sys
 from fractions import Fraction
 
 from datetime import datetime, timezone
-
+from collections import namedtuple
 from . import exiv2_wrapper
+
+Rational = namedtuple("Rational", ["numerator", "denominator"])
+
+def convert_to_rational(data):
+    numerator, denominator = data.split("/")
+    return Rational(numerator=int(numerator), denominator=int(denominator))
+
+
+exiv2_2_python = {
+    "Short": int,
+    "Long": int,
+    "Rational": convert_to_rational,
+    "SRational": convert_to_rational,
+    "String": str,
+    "Date": str,
+    "LangAlt": str,
+    "XmpSeq": str,
+    "Time": str,
+    "XmpText": str,
+    "Ascii": lambda x: bytes(x, encoding="ascii"),
+    "Byte": lambda x: bytes(x, encoding="ascii"),
+    "Undefined": lambda x: bytes(x, encoding="ascii"),
+
+}
 
 
 def convert(type, text):
-    numarical_types = ["Short", "Long"]
-    rational_types = ['Rational', 'SRational']
-    string_types = ["String", "XmpText"]
-    byte_types = ["Ascii", "Byte"]
     try:
-        if type in string_types:
-            return str(text)
-
-        elif type in byte_types:
-            return bytes(text.encode("ascii"))
-
-        elif type in rational_types:
-            nom, dem = text.split("/")
-            return Fraction(int(nom), int(dem))
-
-        elif type in numarical_types:
-            return int(text)
-
-        # elif type == "Time":
-        #     time, timezone = text.split("+")
-        #     dt = datetime.strptime(time, "%H:%M:%S")
-        #     tz = timezone(0)
-
-            # print(dt.timetz())
-            # return dt
-        elif type == "Undefined":
-            return text
-
-        else:
-            print(type, text, file=sys.stderr)
-            return text
-
-    except ValueError:
-        return str(text)
+        return exiv2_2_python[type](text)
+    except KeyError as e:
+        print("Unsupported value {}".format(e), text)
+        return text
+    except ValueError as e:
+        return text
 
 
 class Metadata:
