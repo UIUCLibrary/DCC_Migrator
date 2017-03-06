@@ -5,7 +5,7 @@ def main():
     print("Hello")
     image = Metadata("/Users/hborcher/Documents/00000003.tif")
     md =image.read()
-    pprint(md)
+    print(md)
     # w = exiv2_wrapper.Metadata()
     # res = w.get()
     # pprint(res)
