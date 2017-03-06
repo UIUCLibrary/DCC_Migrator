@@ -1,6 +1,5 @@
 #TODO: Split extension from straight c functions
-set(EXIV2_WRAPPER_SRC boost_migrator_wrapper.cpp metadata.cpp metadata.h)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/DCC_pyMigrator/ext)
+set(EXIV2_WRAPPER_SRC boost_exiv2_wrapper.cpp metadata.cpp metadata.h)
 if (DEP_LIBS_FOUND)
     include_directories(${PYTHON_INCLUDE_DIR})
     include_directories(${EXIV2_INCLUDE_DIR})
