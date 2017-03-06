@@ -4,7 +4,8 @@ from ext import Metadata
 def main():
     print("Hello")
     image = Metadata("/Users/hborcher/Documents/00000003.tif")
-    print(image.read())
+    md =image.read()
+    pprint(md)
     # w = exiv2_wrapper.Metadata()
     # res = w.get()
     # pprint(res)
