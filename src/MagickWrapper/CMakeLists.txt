@@ -1,5 +1,4 @@
 set(MAGICK_WRAPPER_SRC convert.h convert.cpp)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/DCC_pyMigrator/ext)
 if (DEP_LIBS_FOUND)
     include_directories(${PYTHON_INCLUDE_DIR})
     include_directories(${MAGICK_INCLUDE_DIR})
