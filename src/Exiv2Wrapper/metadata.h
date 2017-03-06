@@ -13,6 +13,8 @@ struct metadata_chunk{
     const std::string value;
 };
 
-int read_data(const std::string &filename);
+//int read_data(const std::string &filename);
 const std::vector<metadata_chunk> read_iptc_metadata(const std::string &filename);
+const std::vector<metadata_chunk> read_exif_metadata(const std::string &filename);
+const std::vector<metadata_chunk> read_xmp_metadata(const std::string &filename);
 #endif //HELLOEXIV2_DUMMY_H
