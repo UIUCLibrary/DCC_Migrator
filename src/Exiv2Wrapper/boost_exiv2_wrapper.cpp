@@ -15,7 +15,10 @@
 
 using namespace boost::python;
 
-struct Metadata {
+class Metadata {
+    std::string filename;
+
+public:
     Metadata(const std::string &filename) : filename(filename) {}
 
     dict iptc() {
@@ -25,7 +28,24 @@ struct Metadata {
         }
         return d;
     };
-    std::string filename;
+
+    dict xmp() {
+        dict d;
+        std::cout <<"HERE!!!!" << std::endl;
+        for (auto &i : read_xmp_metadata(this->filename)) {
+            d[i.key] = make_tuple(i.data_type, i.value);
+        }
+        return d;
+
+    }
+
+    dict exif() {
+        dict d;
+        for (auto &i : read_exif_metadata(this->filename)) {
+            d[i.key] = make_tuple(i.data_type, i.value);
+        }
+        return d;
+    }
 };
 
 
@@ -35,6 +55,8 @@ struct Metadata {
 BOOST_PYTHON_MODULE (exiv2_wrapper) {
 
     class_<Metadata>("Metadata", init<std::string>())
-            .def("iptc", &Metadata::iptc);
+            .def("iptc", &Metadata::iptc)
+            .def("exif", &Metadata::exif)
+            .def("xmp", &Metadata::xmp);
 //            .def("foo", &Metadata::foo);
 }
