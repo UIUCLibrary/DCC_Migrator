@@ -60,20 +60,17 @@ if (DEP_LIBS_FOUND)
     add_custom_target(RUN_IN_PYTHON
             COMMAND ${PYTHON_EXECUTABLE} DCC_pyMigrator
             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-            DEPENDS DCC_pyMigrator
+            DEPENDS DCC_pyMigrator Test_Exiv2
             )
     ADD_CUSTOM_TARGET(DCC_pyMigrator
-            DEPENDS PythonSource PythonExtensions)
+            DEPENDS pyExiv2)
 
-    add_custom_target(PythonExtensions
-            DEPENDS exiv2_wrapper
-            )
     add_custom_target(Make_Python_Wheel
             COMMAND ${PYTHON_EXECUTABLE} setup.py bdist_wheel
             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/
             DEPENDS DCC_pyMigrator
             )
-    add_custom_command(OUTPUT PythonSource
+    add_custom_command(TARGET DCC_pyMigrator
             PRE_BUILD
             COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_BINARY_DIR}/DCC_pyMigrator
             COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/DCC_pyMigrator ${CMAKE_BINARY_DIR}/DCC_pyMigrator
@@ -82,7 +79,8 @@ if (DEP_LIBS_FOUND)
             )
 
 
-    add_subdirectory(src/)
+    add_subdirectory(src)
+    add_subdirectory(tests)
 else ()
     message(WARNING "Deps not met")
 endif ()
