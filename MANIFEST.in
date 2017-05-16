@@ -1,0 +1,3 @@
+include CMakeLists.txt cmake/*
+recursive-include src *
+recursive-include tests *
