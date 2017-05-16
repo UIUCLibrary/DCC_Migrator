@@ -1,6 +1,6 @@
 import pytest
-
-TEST_FILE = "/Users/hborcher/Documents/00000003.tif"
+import os
+TEST_FILE = os.path.join(os.path.dirname(__file__), "0852_0004_01-001.tif")
 from DCC_pyMigrator import Metadata
 
 
