@@ -3,10 +3,10 @@ from ext import Metadata
 
 def main():
     print("Hello")
-    image = Metadata("/Users/hborcher/Documents/00000003.tif")
+    image = Metadata("tests/data/00000003.tif")
     md =image.read()
     print(md)
-    # w = exiv2_wrapper.Metadata()
+    # w = exiv2_wrapper.ImageMetadata()
     # res = w.get()
     # pprint(res)
 
