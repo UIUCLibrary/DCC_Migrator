@@ -11,28 +11,37 @@
 
 #include <iostream>
 #include <boost/python/dict.hpp>
-#include "metadata.h"
+#include "reader.h"
 
 using namespace boost::python;
 
-class Metadata {
+class ImageMetadata {
     std::string filename;
 
 public:
-    Metadata(const std::string &filename) : filename(filename) {}
+    ImageMetadata(const std::string &filename) : filename(filename) {}
 
     dict iptc() {
         dict d;
-        for (auto &i : read_iptc_metadata(this->filename)) {
-            d[i.key] = make_tuple(i.data_type, i.value);
+        auto md = read_iptc_metadata2(this->filename);
+
+        for(auto const &entry: md){
+            auto const &key = entry.first;
+            auto const &data = entry.second;
+            d[key] = make_tuple(data.data_type, data.value);
         }
         return d;
     };
 
     dict xmp() {
         dict d;
-        for (auto &i : read_xmp_metadata(this->filename)) {
-            d[i.key] = make_tuple(i.data_type, i.value);
+
+        auto md = read_xmp_metadata2(this->filename);
+        for(auto const &entry: md){
+
+            std::string const &key = entry.first;
+            auto const &data = entry.second;
+            d[key] = make_tuple(data.data_type, data.value);
         }
         return d;
 
@@ -40,9 +49,13 @@ public:
 
     dict exif() {
         dict d;
-        for (auto &i : read_exif_metadata(this->filename)) {
-            d[i.key] = make_tuple(i.data_type, i.value);
+        auto md = read_exif_metadata2(this->filename);
+        for(auto const &entry: md){
+            auto const &key = entry.first;
+            auto const &data = entry.second;
+            d[key] = make_tuple(data.data_type, data.value);
         }
+
         return d;
     }
 };
@@ -51,11 +64,11 @@ public:
 #include <boost/python.hpp>
 
 
-BOOST_PYTHON_MODULE (exiv2_wrapper) {
+BOOST_PYTHON_MODULE (pyExiv2) {
 
-    class_<Metadata>("Metadata", init<std::string>())
-            .def("iptc", &Metadata::iptc)
-            .def("exif", &Metadata::exif)
-            .def("xmp", &Metadata::xmp);
-//            .def("foo", &Metadata::foo);
+    class_<ImageMetadata>("ImageMetadata", init<std::string>())
+            .def("iptc", &ImageMetadata::iptc)
+            .def("exif", &ImageMetadata::exif)
+            .def("xmp", &ImageMetadata::xmp);
+//            .def("foo", &ImageMetadata::foo);
 }
