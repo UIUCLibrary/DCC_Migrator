@@ -1,5 +1,5 @@
 from collections import namedtuple
-from . import exiv2_wrapper
+from . import pyExiv2
 
 Rational = namedtuple("Rational", ["numerator", "denominator"])
 
@@ -39,7 +39,7 @@ def convert(type, text):
 class Metadata:
     def __init__(self, file):
         self._file = file
-        self._data = exiv2_wrapper.Metadata(file)
+        self._data = pyExiv2.ImageMetadata(file)
 
     def read(self):
         iptc = self._data.iptc()
